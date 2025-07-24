@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/grs';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://your_mongodb_url';
 
 interface Video {
   categoryCode: string;

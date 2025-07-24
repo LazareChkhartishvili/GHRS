@@ -46,7 +46,7 @@ function createOrthopedicsSubcategories() {
                 case 0:
                     _a.trys.push([0, 7, , 8]);
                     // Connect to MongoDB
-                    return [4 /*yield*/, (0, mongoose_1.connect)(process.env.MONGODB_URI || 'mongodb://localhost:27017/ghrs')];
+                    return [4 /*yield*/, (0, mongoose_1.connect)(process.env.MONGODB_URI || 'mongodb+srv://your_mongodb_url')];
                 case 1:
                     // Connect to MongoDB
                     _a.sent();

@@ -30,9 +30,11 @@ function isPublicEndpoint(endpoint: string): boolean {
 
 // API Configuration
 export const API_CONFIG = {
-  // შეცვალე შენი backend URL-ით
-  // BASE_URL: process.env.NEXT_PUBLIC_API_URL || "https://grs-bkbc.onrender.com",
-  BASE_URL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000",
+  // URL კონფიგურაცია გარემოს მიხედვით
+  BASE_URL: process.env.NODE_ENV === 'development'
+    ? (process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000")
+    : (process.env.NEXT_PUBLIC_API_URL || "https://ghrs-backend.onrender.com"),
+  
   ENDPOINTS: {
     UPLOAD: {
       IMAGE: "/upload/image"
