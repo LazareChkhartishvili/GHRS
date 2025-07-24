@@ -18,7 +18,7 @@ const ContentsSidebar = () => (
       ))}
     </ol>
   </div>
-);x
+);
 
 const TeacherInfo = () => {
   return (

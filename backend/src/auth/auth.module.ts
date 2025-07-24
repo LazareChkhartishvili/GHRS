@@ -7,15 +7,18 @@ import { AuthService } from './auth.service';
 import { User, UserSchema } from '../schemas/user.schema';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
-
-const jwtSecret = 'grs_super_secret_key_2024';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     PassportModule,
-    JwtModule.register({
-      secret: jwtSecret,
-      signOptions: { expiresIn: '24h' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET') || 'grs_super_secret_key_2024',
+        signOptions: { expiresIn: '24h' },
+      }),
+      inject: [ConfigService],
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],

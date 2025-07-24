@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useLayoutEffect, useState } from "react";
+import React, { useRef, useLayoutEffect, useState, Suspense } from "react";
 import DesktopNavbar from "../components/Navbar/DesktopNavbar";
 import { defaultMenuItems } from "../components/Header";
 import Image from "next/image";
@@ -173,7 +173,7 @@ const getLocalizedText = (
   );
 };
 
-const Player = () => {
+function PlayerContent() {
   const searchParams = useSearchParams();
   const setId = searchParams.get('setId') || '';
   const { t } = useI18n();
@@ -207,7 +207,7 @@ const Player = () => {
 
   return (
     <div>
-      <DesktopNavbar menuItems={defaultMenuItems} blogBg={false} />
+      <DesktopNavbar menuItems={defaultMenuItems} blogBg={false} allCourseBg={true} />
       <MobileNavbar />
       <div className="flex flex-col items-center md:overflow-hidden">
         <div className="w-full  max-w-[1400px] aspect-video md:mx-auto px-1 rounded-[20px] md:rounded-[30px] overflow-hidden">
@@ -421,6 +421,21 @@ const Player = () => {
       </section>
     </div>
   );
-};
+}
 
-export default Player;
+export default function Player() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-600 border-t-transparent mb-4 mx-auto"></div>
+          <h2 className="text-2xl font-cinzel font-semibold text-gray-700">
+            Loading...
+          </h2>
+        </div>
+      </div>
+    }>
+      <PlayerContent />
+    </Suspense>
+  );
+}

@@ -1,14 +1,12 @@
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
-  cloud_name: 'dbmzjqukp',
-  api_key: '622194379619647',
-  api_secret: 'Gp0TVTbci1g1XcSSWLDCafr2cTQ'
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'dbmzjqukp',
+  api_key: process.env.CLOUDINARY_API_KEY || '622194379619647',
+  api_secret: process.env.CLOUDINARY_API_SECRET || 'Gp0TVTbci1g1XcSSWLDCafr2cTQ'
 });
 
-console.log('Cloudinary configured with:', {
-  cloud_name: cloudinary.config().cloud_name,
-  api_key: cloudinary.config().api_key
-});
+// Log only non-sensitive information
+console.log('Cloudinary configured with cloud name:', cloudinary.config().cloud_name);
 
 export default cloudinary; 

@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useCategoryComplete } from "../../hooks/useCategoryComplete";
 import { usePopularExercises } from "../../hooks/useExercises";
@@ -11,8 +12,9 @@ import ReviewSlider from "../../components/ReviewSlider";
 import Professional from "../../components/Professional";
 import Blog from "@/app/components/Blog";
 import { useI18n } from "../../context/I18nContext";
+import { BackendExercise } from "@/types/exercise";
 
-export default function SectionPage() {
+function SectionContent() {
   const searchParams = useSearchParams();
   const subcategoryId = searchParams.get('subcategoryId') || '';
   const categoryId = searchParams.get('categoryId') || '';
@@ -144,6 +146,7 @@ export default function SectionPage() {
               title={getLocalizedText(selectedSubcategory?.name as { ka: string; en: string; ru: string }, locale)} 
               works={formattedSets}
               linkType="complex"
+              fromMain={false}
             />
           </div>
         )}
@@ -164,7 +167,7 @@ export default function SectionPage() {
         {!popularLoading && popularExercises.length > 0 && (
           <div className="mt-10">
             <Works 
-              exercises={popularExercises}
+              exercises={popularExercises as unknown as BackendExercise[]}
               title={t("common.popular_exercises") || "პოპულარული ვარჯიშები"}
             />
           </div>
@@ -195,5 +198,22 @@ export default function SectionPage() {
         <Professional />
       </div>
     </div>
+  );
+}
+
+export default function SectionPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-600 border-t-transparent mb-4 mx-auto"></div>
+          <h2 className="text-2xl font-cinzel font-semibold text-gray-700">
+            Loading...
+          </h2>
+        </div>
+      </div>
+    }>
+      <SectionContent />
+    </Suspense>
   );
 }

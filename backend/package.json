@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "prebuild": "npm install -g @nestjs/cli",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -23,6 +24,7 @@
     "migrate:sets:update-videos": "ts-node scripts/update-set-videos.ts"
   },
   "dependencies": {
+    "@nestjs/cli": "^10.1.18",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.3.0",
     "@nestjs/core": "^10.0.0",
@@ -46,7 +48,6 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "@nestjs/cli": "^10.1.18",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/bcrypt": "^5.0.0",
