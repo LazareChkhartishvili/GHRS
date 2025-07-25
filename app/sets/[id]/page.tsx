@@ -23,14 +23,14 @@ const SetDetails = () => {
         const endpoint = `/api/sets/${params.id}`;
         const data = await apiRequest<Set>(endpoint);
         setSet(data);
-        
+
         // თუ სეტს აქვს ვიდეოები, პირველი ვიდეო ავირჩიოთ
         if (data.videos.length > 0) {
           setSelectedVideo(0);
         }
       } catch (err) {
         console.error("❌ Error fetching set:", err);
-        setError(t('errors.failed_to_load'));
+        setError(t("errors.failed_to_load"));
       } finally {
         setLoading(false);
       }
@@ -41,9 +41,9 @@ const SetDetails = () => {
     }
   }, [params.id, t]);
 
-  if (loading) return <div>{t('loading')}...</div>;
+  if (loading) return <div>{t("loading")}...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
-  if (!set) return <div>{t('errors.set_not_found')}</div>;
+  if (!set) return <div>{t("errors.set_not_found")}</div>;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -63,14 +63,18 @@ const SetDetails = () => {
             {/* სეტის ინფორმაცია და ვიდეოების სია */}
             <div className="lg:col-span-1">
               <div className="bg-gray-50 rounded-lg p-6 mb-6">
-                <h3 className="text-xl font-semibold mb-4">{t('common.subscription_plans')}</h3>
+                <h3 className="text-xl font-semibold mb-4">
+                  {t("common.subscription_plans")}
+                </h3>
                 <div className="space-y-3">
                   {set.subscriptionPlans.map((plan: any, index: any) => (
                     <div
                       key={index}
                       className="flex justify-between items-center p-3 bg-white rounded-lg shadow-sm"
                     >
-                      <span className="text-gray-700">{plan.period} {t('months')}</span>
+                      <span className="text-gray-700">
+                        {plan.period} {t("months")}
+                      </span>
                       <span className="font-semibold text-purple-600">
                         {plan.price} ₾
                       </span>
@@ -92,4 +96,4 @@ const SetDetails = () => {
   );
 };
 
-export default SetDetails; 
+export default SetDetails;
