@@ -9,7 +9,11 @@ import MobileNavbar from "../components/Navbar/MobileNavbar";
 const BlogRoute = () => {
   return (
     <div>
-      <DesktopNavbar menuItems={defaultMenuItems} blogBg={true} />
+      <DesktopNavbar
+        menuItems={defaultMenuItems}
+        blogBg={true}
+        allCourseBg={false}
+      />
       <MobileNavbar />
       <Header variant="blog" />
       <div className="flex flex-col">
